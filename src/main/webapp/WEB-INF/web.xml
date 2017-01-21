@@ -26,7 +26,7 @@
 
     <!--<filter>-->
         <!--<filter-name>corsFilter</filter-name>-->
-        <!--<filter-class>filters.CORSFilter</filter-class>-->
+        <!--<filter-class>com.eyes.filters.CORSFilter</filter-class>-->
     <!--</filter>-->
     <!--<filter-mapping>-->
         <!--<filter-name>corsFilter</filter-name>-->

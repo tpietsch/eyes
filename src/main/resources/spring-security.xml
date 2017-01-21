@@ -33,17 +33,7 @@
         <constructor-arg  value="app-#{ systemProperties['env']}.properties"/>
     </bean>
 
-    <bean id="imageFolder" class="java.lang.String">
-        <constructor-arg value="/var/www/images/"/>
-    </bean>
-
-    <bean id="privateDocFolder" class="java.lang.String">
-        <constructor-arg value="/var/www/files/"/>
-    </bean>
-
-    <context:component-scan base-package="filters"/>
-    <context:component-scan base-package="rest"/>
-    <context:component-scan base-package="security"/>
+    <context:component-scan base-package="com.eyes"/>
 
 
     <mvc:default-servlet-handler/>
@@ -59,7 +49,7 @@
     </mvc:annotation-driven>
 
 
-    <bean id="jacksonObjectMapper" class="rest.JsonObjectMapperProvider" />
+    <bean id="jacksonObjectMapper" class="com.eyes.configuration.JsonObjectMapperProvider" />
     <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
         <property name="maxUploadSize" value="100000000" />
     </bean>
@@ -92,7 +82,7 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <bean id="jwtAuthenticationFilter" class="security.authentication.JwtAuthenticationFilter">
+    <bean id="jwtAuthenticationFilter" class="com.eyes.authentication.JwtAuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="authenticationSuccessHandler" ref="jwtSuccessHandler" />
     </bean>
@@ -124,7 +114,9 @@
         <constructor-arg value="10"/>
     </bean>
 
-    <jpa:repositories base-package="database.repositories"/>
+    <jpa:repositories base-package="com.eyes.authentication.database.repositories"/>
+    <jpa:repositories base-package="com.eyes.follow.database.repositories"/>
+    <jpa:repositories base-package="com.eyes.tweet.database.repositories"/>
 
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -133,12 +125,12 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <bean id="jpaProps" class="database.JPAProps" init-method="setProps">
+    <bean id="jpaProps" class="com.eyes.configuration.JPAProps" init-method="setProps">
         <constructor-arg ref="configuration"/>
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="packagesToScan" value="database.models"/>
+        <property name="packagesToScan" value="com.eyes.authentication.database.models,com.eyes.follow.database.models,com.eyes.tweet.database.models"/>
         <property name="dataSource" ref="configDataSource"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">

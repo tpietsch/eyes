@@ -124,10 +124,10 @@
   <xs:element name="debug">
       <xs:annotation>
          <xs:documentation>Enables Spring Security debugging infrastructure. This will provide human-readable
-                (multi-line) debugging information to monitor requests coming into the security filters.
-                This may include sensitive information, such as request parameters or headers, and should
-                only be used in a development environment.
-                </xs:documentation>
+             (multi-line) debugging information to monitor requests coming into the security com.eyes.filters.
+             This may include sensitive information, such as request parameters or headers, and should
+             only be used in a development environment.
+         </xs:documentation>
       </xs:annotation>
       <xs:complexType/>
    </xs:element>
@@ -953,7 +953,7 @@
       <xs:annotation>
          <xs:documentation>Container element for HTTP security configuration. Multiple elements can now be defined,
                 each with a specific pattern to which the enclosed security configuration applies. A
-                pattern can also be configured to bypass Spring Security's filters completely by setting
+                pattern can also be configured to bypass Spring Security's com.eyes.filters completely by setting
                 the "security" attribute to "none".
                 </xs:documentation>
       </xs:annotation>
@@ -1128,7 +1128,7 @@
       <xs:attribute name="security">
          <xs:annotation>
             <xs:documentation>When set to 'none', requests matching the pattern attribute will be ignored by Spring
-                Security. No security filters will be applied and no SecurityContext will be available. If
+                Security. No security com.eyes.filters will be applied and no SecurityContext will be available. If
                 set, the &lt;http&gt; element must be empty, with no children.
                 </xs:documentation>
          </xs:annotation>
@@ -1327,7 +1327,7 @@
       <xs:attribute name="filters">
          <xs:annotation>
             <xs:documentation>The filter list for the path. Currently can be set to "none" to remove a path from having
-                any filters applied. The full filter stack (consisting of all filters created by the
+                any com.eyes.filters applied. The full filter stack (consisting of all com.eyes.filters created by the
                 namespace configuration, and any added using 'custom-filter'), will be applied to any
                 other paths.
                 </xs:documentation>
@@ -1576,7 +1576,7 @@
   </xs:attributeGroup>
   <xs:element name="filter-chain">
       <xs:annotation>
-         <xs:documentation>Used within to define a specific URL pattern and the list of filters which apply to the
+         <xs:documentation>Used within to define a specific URL pattern and the list of com.eyes.filters which apply to the
                 URLs matching that pattern. When multiple filter-chain elements are assembled in a list in
                 order to configure a FilterChainProxy, the most specific patterns must be placed at the
                 top of the list, with most general ones at the bottom.
@@ -2690,10 +2690,10 @@
       <xs:attribute name="after" type="security:named-security-filter">
          <xs:annotation>
             <xs:documentation>The filter immediately after which the custom-filter should be placed in the chain. This
-                feature will only be needed by advanced users who wish to mix their own filters into the
-                security filter chain and have some knowledge of the standard Spring Security filters. The
-                filter names map to specific Spring Security implementation filters.
-                </xs:documentation>
+                feature will only be needed by advanced users who wish to mix their own com.eyes.filters into the
+                security filter chain and have some knowledge of the standard Spring Security com.eyes.filters. The
+                filter names map to specific Spring Security implementation com.eyes.filters.
+            </xs:documentation>
          </xs:annotation>
       </xs:attribute>
       <xs:attribute name="before" type="security:named-security-filter">
@@ -2714,10 +2714,10 @@
       <xs:attribute name="after" use="required" type="security:named-security-filter">
          <xs:annotation>
             <xs:documentation>The filter immediately after which the custom-filter should be placed in the chain. This
-                feature will only be needed by advanced users who wish to mix their own filters into the
-                security filter chain and have some knowledge of the standard Spring Security filters. The
-                filter names map to specific Spring Security implementation filters.
-                </xs:documentation>
+                feature will only be needed by advanced users who wish to mix their own com.eyes.filters into the
+                security filter chain and have some knowledge of the standard Spring Security com.eyes.filters. The
+                filter names map to specific Spring Security implementation com.eyes.filters.
+            </xs:documentation>
          </xs:annotation>
       </xs:attribute>
   </xs:attributeGroup>
