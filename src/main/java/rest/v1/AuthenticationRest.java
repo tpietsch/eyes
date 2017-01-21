@@ -5,6 +5,7 @@ import database.models.UserEntity;
 import database.repositories.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -45,6 +46,7 @@ public class AuthenticationRest implements AuthenticationEntryPoint {
     @Autowired
     JwtParseUtil jwtParseUtil;
 
+    @Qualifier("userRepository")
     @Autowired
     UserRepository userRepository;
 
