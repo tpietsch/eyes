@@ -1,0 +1,107 @@
+<div class="container">
+    <h1>Currently logged in as {{::RootController.currentUser.username}}</h1>
+    <div class="row">
+        <section class="content">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h1>Tweets For {{RootController.user.email}}</h1>
+                        <textarea class="form-control" rows="5" ng-model="RootController.message"></textarea>
+                        <button class="btn btn-default" ng-click="RootController.tweet(RootController.message)">Send
+                            Tweet
+                        </button>
+                        <div class="table-container">
+                            <table class="table table-filter">
+                                <tbody>
+                                <tr data-status="pagado" ng-repeat="tweet in RootController.tweets">
+                                    <td>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <span class="media-meta pull-right">{{::tweet.dateCreated | date :  "MM.dd.y HH:MM" }}</span>
+                                                <p class="summary">{{::tweet.tweet}}</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h1>Followers For {{RootController.user.email}}</h1>
+                        <div class="table-container">
+                            <table class="table table-filter">
+                                <tbody>
+                                <tr data-status="pagado" ng-repeat="follower in RootController.followedBy">
+                                    <td>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <p class="summary">{{::follower.followByUserEntity.email}}</p>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h1>{{RootController.user.email}} Following</h1>
+                        <div class="table-container">
+                            <table class="table table-filter">
+                                <tbody>
+                                <tr data-status="pagado" ng-repeat="following in RootController.userFollowing">
+                                    <td>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <p class="summary">{{::following.followingUserEntity.email}}</p>
+                                                <button class="btn btn-danger btn-xs" ng-click="RootController.unfollow(following.followId)">unfollow</button>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        All Users
+                        <div class="table-container">
+                            <table class="table table-filter">
+                                <tbody>
+                                <tr data-status="pagado" ng-repeat="user in RootController.allUsers">
+                                    <td>
+                                        <div class="media">
+                                            <div class="media-body">
+                                                <a ui-sref="user({id:user.userId})">{{::user.email}}</a>
+                                                <button class="btn btn-success btn-xs" ng-click="RootController.follow(user.userId)">follow</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
