@@ -55,5 +55,26 @@ public class TweetTest extends AppTest {
         userTweetRest.newTweet(user1.getUserId(), new TweetEntity());
     }
 
+    @Test()
+    @WithMockUser(roles = {"ADMIN"})
+    public void testSearchTextForTweet() {
+        UserEntity userEntity = createNewRandomUser();
+        String similarSubstring = "trever";
+        String randomTweet = UUID.randomUUID().toString() + similarSubstring;
+        String randomTweetTwo = UUID.randomUUID().toString() + similarSubstring;
+        TweetEntity tweetEntity = new TweetEntity();
+        tweetEntity.setUserId(userEntity.getUserId());
+        tweetEntity.setTweet(randomTweet);
+        TweetEntity tweetEntityTwo = new TweetEntity();
+        tweetEntityTwo.setUserId(userEntity.getUserId());
+        tweetEntityTwo.setTweet(randomTweetTwo);
+        tweetRepository.saveTweet(tweetEntity);
+        tweetRepository.saveTweet(tweetEntityTwo);
+        assert ((List<?>) userTweetRest
+                .getTweetsForUserAndFollowedUsersTweets(userEntity.getUserId(), randomTweet).getBody()).size() == 1;
+        assert ((List<?>) userTweetRest
+                .getTweetsForUserAndFollowedUsersTweets(userEntity.getUserId(), similarSubstring).getBody()).size() == 2;
+    }
+
 
 }

@@ -31,14 +31,7 @@ public class FollowRepositoryImpl implements FollowRepositoryInterface {
     @Override
     public void testTransactionRollbacks(List<FollowEntity> followEntityList) {
         followEntityList.stream().forEach(followEntity -> {
-            String SQL = "INSERT INTO follow (follow_id, follow_by_user_id, following_user_id, date_created) " +
-                    "VALUES (:followId, :followByUserId, :followingUserId,:dateCreated)";
-            Map namedParameters = new HashMap();
-            namedParameters.put("followId", followEntity.getFollowId());
-            namedParameters.put("followByUserId", followEntity.getFollowByUserId());
-            namedParameters.put("followingUserId", followEntity.getFollowingUserId());
-            namedParameters.put("dateCreated", followEntity.getDateCreated());
-            jdbcTemplate.update(SQL, namedParameters);
+           createFollow(followEntity);
         });
         throw new RuntimeException("Exception and Rollback Test");
     }
