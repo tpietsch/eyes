@@ -102,7 +102,9 @@ public class AuthenticationRest implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         if (authException != null) {
+            response.setContentType("application/json");
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getOutputStream().println("{ \"error\": \"" + authException.getMessage() + "\" }");
         }
     }
 

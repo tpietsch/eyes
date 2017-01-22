@@ -13,7 +13,7 @@ public class TweetSecurity {
     @Autowired
     AuthenticatedUserUtil authenticatedUserUtil;
 
-    public boolean isUserTweetForCurrentUser(String userId){
+    public boolean isUserTweetForCurrentUser(Authentication authentication,String userId){
         return authenticatedUserUtil.getAuthenticatedUserEntity().getUserId().equals(userId);
     }
 }
