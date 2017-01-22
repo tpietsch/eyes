@@ -1,8 +1,9 @@
 (function () {
     'use strict';
     define([], function () {
-        RootStates.prototype.$inject = ['$stateProvider'];
-        function RootStates($stateProvider) {
+        RootStates.prototype.$inject = ['$stateProvider','$urlRouterProvider'];
+        function RootStates($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise("/login");
             $stateProvider
                 .state('user', {
                     url: "/user/:id",
