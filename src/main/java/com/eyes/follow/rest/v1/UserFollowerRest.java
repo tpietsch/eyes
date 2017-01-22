@@ -74,7 +74,7 @@ public class UserFollowerRest {
         }
 
         followEntity.setDateCreated(new Timestamp(System.currentTimeMillis()));
-        return ResponseEntity.ok(followRepository.save(followEntity));
+        return ResponseEntity.ok(followRepository.createFollow(followEntity));
     }
 
     @RequestMapping(method = RequestMethod.DELETE,value = "/" + FOLLOW_ID_PATH)

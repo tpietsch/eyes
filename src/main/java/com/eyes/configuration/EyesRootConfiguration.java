@@ -205,8 +205,8 @@ public class EyesRootConfiguration extends WebMvcConfigurerAdapter {
     }
 
     @Bean
-    public JdbcTemplate getJdbcTemplate() throws ConfigurationException {
-        return  new JdbcTemplate(dataSource());
+    public JdbcTemplate getJdbcTemplate(DataSource dataSource) throws ConfigurationException {
+        return  new JdbcTemplate(dataSource);
     }
 
     @Bean

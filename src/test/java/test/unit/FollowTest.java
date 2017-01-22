@@ -7,7 +7,10 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public class FollowTest extends AppTest {
 
@@ -46,6 +49,29 @@ public class FollowTest extends AppTest {
         follow.setFollowingUserId(authenticatedUserUtil.getAuthenticatedUserEntity().getUserId());
         follow.setFollowByUserId(user1.getUserId());
         userFollowerRest.createNewFollow(user1.getUserId(), follow);
+    }
+
+    @Test
+    @WithMockUser(roles = {"ADMIN"})
+    public void testRollbacksForFollows(){
+        List<FollowEntity> list = new ArrayList<>();
+        list.add(createNewRandomFollow());
+        list.add(createNewRandomFollow());
+        list.add(createNewRandomFollow());
+        try {
+            followRepository.testTransactionRollbacks(list);
+        }catch (RuntimeException e){
+            list.stream().forEach(followEntity -> {
+                assert followRepository.findOne(followEntity.getFollowId()) == null;
+            });
+        }
+    }
+
+    private FollowEntity createNewRandomFollow() {
+        FollowEntity followEntity = new FollowEntity();
+        followEntity.setFollowByUserId(createNewRandomUser().getUserId());
+        followEntity.setFollowingUserId(createNewRandomUser().getUserId());
+        return followEntity;
     }
 
 

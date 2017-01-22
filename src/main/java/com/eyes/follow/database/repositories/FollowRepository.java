@@ -10,7 +10,7 @@ import java.util.Set;
 
 
 @Repository
-public interface FollowRepository extends JpaRepository<FollowEntity, String> {
+public interface FollowRepository extends JpaRepository<FollowEntity, String>,FollowRepositoryInterface {
 
     @Query("select follow from FollowEntity follow where follow.followingUserId=?1 order by follow.dateCreated desc")
     Set<FollowEntity> findFollowersForUser(String userId);
@@ -21,4 +21,6 @@ public interface FollowRepository extends JpaRepository<FollowEntity, String> {
     @Query("select follow from FollowEntity follow " +
             "where follow.followByUserId=?1 and follow.followingUserId = ?2")
     Set<FollowEntity> findByFollowerAndFollowingUserId(String curreUserId, String userId);
+
+
 }
