@@ -61,6 +61,9 @@ public class UserFollowerRest {
     @Transactional
     public ResponseEntity<?> createNewFollow(@PathVariable(USER_ID) String userId,
                                              @RequestBody FollowEntity followEntity) {
+        if(userId.equals(authenticatedUserUtil.getAuthenticatedUserEntity().getUserId())){
+            return ResponseEntity.status(403).body(new ErrorJsonResponse("Cannot Follow Self"));
+        }
         String curreUserId = authenticatedUserUtil.getAuthenticatedUserEntity().getUserId();
         Set<FollowEntity> follows = followRepository.findByFollowerAndFollowingUserId(curreUserId,userId);
         if(follows.size() > 0){
@@ -76,9 +79,14 @@ public class UserFollowerRest {
     @RequestMapping(method = RequestMethod.DELETE,value = "/" + FOLLOW_ID_PATH)
     @ResponseBody
     @Transactional
-    public void unfollow(@PathVariable(USER_ID) String userId, @PathVariable(FOLLOW_ID) String followId) {
-       followRepository.delete(followId);
+    public ResponseEntity<?> unfollow(@PathVariable(USER_ID) String userId, @PathVariable(FOLLOW_ID) String followId) {
+        if (userId.equals(authenticatedUserUtil.getAuthenticatedUserEntity().getUserId())) {
+            return ResponseEntity.status(403).body(new ErrorJsonResponse("Unfollow Self Not Allowed"));
+        }
+        followRepository.delete(followId);
+        return ResponseEntity.status(200).build();
     }
+
 }
 
 
