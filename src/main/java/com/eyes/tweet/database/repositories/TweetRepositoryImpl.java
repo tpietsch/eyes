@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-@Service("tweetRepositoryImpl")
-public class TweetRepositoryImpl implements TweetRepositoryInterface{
+import java.util.Collection;
+
+public class TweetRepositoryImpl{
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public void insert(TweetEntity tweetEntity) {
+    public TweetEntity save(TweetEntity tweetEntity) {
 
         String sql = "INSERT INTO tweet " +
                 "(tweet_id,date_created,tweet,user_id) VALUES (?, ?, ?,?)";
@@ -21,5 +22,6 @@ public class TweetRepositoryImpl implements TweetRepositoryInterface{
                 tweetEntity.getDateCreated(),
                 tweetEntity.getTweet(),
                 tweetEntity.getUserId());
+        return tweetEntity;
     }
 }
