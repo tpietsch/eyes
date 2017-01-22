@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-public class TweetRepositoryImpl{
+public class TweetRepositoryImpl  implements TweetRepositoryInterface{
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public TweetEntity save(TweetEntity tweetEntity) {
+    public TweetEntity saveTweet(TweetEntity tweetEntity) {
 
         String sql = "INSERT INTO tweet " +
                 "(tweet_id,date_created,tweet,user_id) VALUES (?, ?, ?,?)";
@@ -24,4 +24,5 @@ public class TweetRepositoryImpl{
                 tweetEntity.getUserId());
         return tweetEntity;
     }
+
 }

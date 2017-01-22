@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Set;
 
 @Repository
-public interface TweetRepository extends CrudRepository<TweetEntity, String> {
+public interface TweetRepository extends CrudRepository<TweetEntity, String>,TweetRepositoryInterface {
 
     @Query("select tweet from TweetEntity tweet where tweet.userId = ?1 and " +
             "(tweet.tweet like CONCAT('%',?2,'%') or ?2 is null)")
@@ -21,5 +21,4 @@ public interface TweetRepository extends CrudRepository<TweetEntity, String> {
     @Query("select tweet from TweetEntity tweet where tweet.userId = ?1")
     Set<TweetEntity> findTweets(String userId);
 
-    TweetEntity save(TweetEntity tweetEntity);
 }

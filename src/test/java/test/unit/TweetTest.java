@@ -17,7 +17,7 @@ public class TweetTest extends AppTest {
         TweetEntity tweetEntity = new TweetEntity();
         tweetEntity.setTweet(UUID.randomUUID().toString());
         tweetEntity.setUserId(userEntity.getUserId());
-        tweetRepository.save(tweetEntity);
+        tweetRepository.saveTweet(tweetEntity);
     }
 
     @Test

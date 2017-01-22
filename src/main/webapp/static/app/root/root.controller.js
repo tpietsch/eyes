@@ -55,6 +55,12 @@
             }.bind(this))
         };
 
+        RootController.prototype.filterTweets = function (searchTerm) {
+            this.TweetResource.query({id:this.user.userId,search:searchTerm}).$promise.then(function(data){
+                this.tweets = data;
+            }.bind(this))
+        };
+
         return RootController;
     });
 })();

@@ -95,7 +95,7 @@ public class UserTweetRest {
     public ResponseEntity<?> newTweet(@PathVariable(USER_ID) String userId, @RequestBody TweetEntity tweetEntity) {
         tweetEntity.setUserId(userId);
         tweetEntity.setDateCreated(new Timestamp(System.currentTimeMillis()));
-        return ResponseEntity.ok(tweetRepository.save(tweetEntity));
+        return ResponseEntity.ok(tweetRepository.saveTweet(tweetEntity));
     }
 
 }

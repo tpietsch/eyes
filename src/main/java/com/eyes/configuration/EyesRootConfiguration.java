@@ -21,6 +21,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 import org.springframework.lang.UsesJava7;
@@ -39,6 +40,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
 import java.util.List;
 import java.util.Properties;
 
@@ -167,12 +169,12 @@ public class EyesRootConfiguration extends WebMvcConfigurerAdapter {
             properties.setProperty("spring.jpa.hibernate.ddl-auto","create-drop");
             properties.setProperty("hibernate.hbm2ddl.import_files_sql_extractor","org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor");
             properties.setProperty("hibernate.hbm2ddl.import_files", "import.sql");
-            properties.setProperty("hibernate.format_sql", "true");
+            properties.setProperty("hibernate.format_sql", "false");
         }else{
             properties.setProperty("hibernate.hbm2ddl.auto","create-drop");
         }
         properties.setProperty("hibernate.dialect", configuration.getString("dialect", "org.hibernate.dialect.MySQLDialect"));
-        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("hibernate.show_sql", "false");
         return properties;
     }
 
@@ -207,8 +209,14 @@ public class EyesRootConfiguration extends WebMvcConfigurerAdapter {
         return  new JdbcTemplate(dataSource());
     }
 
+    @Bean
+    NamedParameterJdbcTemplate jdbcNamedTemplate(DataSource dataSource) {
+        return new NamedParameterJdbcTemplate(dataSource);
+    }
+
+    //TODO add beans for this stuff - mostly unnecessary but for thoroughness
     /*
-        <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
+    <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
     <task:executor id="myExecutor"  pool-size="5"/>
     <task:scheduler id="myScheduler" pool-size="10"/>
 

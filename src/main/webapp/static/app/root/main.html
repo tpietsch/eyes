@@ -26,6 +26,10 @@
                                 </tbody>
                             </table>
                         </div>
+                        <input type="text" class="form-control" ng-model="RootController.filterText"/>
+                        <button class="btn btn-default" ng-click="RootController.filterTweets(RootController.filterText)">Send
+                            Tweet
+                        </button>
                     </div>
                 </div>
 
