@@ -20,7 +20,7 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.web.bind.annotation.*;
 import com.eyes.authentication.EyesAuthenticationProvider;
 import com.eyes.authentication.JwtParseUtil;
-import com.eyes.authentication.CurrentUserUtil;
+import com.eyes.authentication.AuthenticatedUserUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -48,12 +48,12 @@ public class AuthenticationRest implements AuthenticationEntryPoint {
     UserRepository userRepository;
 
     @Autowired
-    CurrentUserUtil currentUserUtil;
+    AuthenticatedUserUtil authenticatedUserUtil;
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     public LoginStatus getStatus(HttpServletRequest request, HttpServletResponse response) {
-        UserEntity userEntity = currentUserUtil.getCurrentUser();
+        UserEntity userEntity = authenticatedUserUtil.getAuthenticatedUserEntity();
         try {
             if (userEntity != null) {
                 return new LoginStatus(true, userEntity.getEmail(),userEntity.getUserId());

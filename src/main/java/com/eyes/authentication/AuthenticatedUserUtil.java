@@ -7,11 +7,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CurrentUserUtil {
+public class AuthenticatedUserUtil {
     @Autowired
     UserRepository mUserRepository;
 
-    public UserEntity getCurrentUser() {
+    public UserEntity getAuthenticatedUserEntity() {
         try {
             if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof String) {
                return null;

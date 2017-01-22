@@ -17,15 +17,14 @@ import org.springframework.stereotype.Component;
 public class EyesAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    @Qualifier("userServiceTwo")
-    UserDetailsService userServiceTwo;
+    UserDetailsService eyesUserDetailsService;
 
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Authentication authenticate(Authentication authentication)
             throws AuthenticationException {
-        UserDetails user = userServiceTwo.loadUserByUsername(authentication.getName());
+        UserDetails user = eyesUserDetailsService.loadUserByUsername(authentication.getName());
 
         if (user == null) {
             throw new AuthenticationCredentialsNotFoundException("Password Does Not Match");

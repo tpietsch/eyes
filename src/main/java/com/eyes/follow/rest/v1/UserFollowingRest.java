@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.eyes.error.ErrorJsonResponse;
-import com.eyes.authentication.CurrentUserUtil;
+import com.eyes.authentication.AuthenticatedUserUtil;
 
 import java.util.Set;
 
@@ -27,7 +27,7 @@ public class UserFollowingRest {
     FollowRepository followRepository;
 
     @Autowired
-    CurrentUserUtil currentUserUtil;
+    AuthenticatedUserUtil authenticatedUserUtil;
 
     @Autowired
     UserRepository userRepository;
@@ -36,15 +36,13 @@ public class UserFollowingRest {
     @ResponseBody
     @Transactional
     public ResponseEntity<?> getReceipts(@PathVariable(USER_ID) String userId) {
-
         try {
-
             Set<FollowEntity> follows = followRepository
                     .findFollowingByUserId(userId);
-            follows.stream().forEach(followEntity -> {
+            follows.parallelStream().forEach(followEntity -> {
                 followEntity.setFollowByUserEntityByUserId(userRepository.findOne(followEntity.getFollowByUserId()));
             });
-            follows.stream().forEach(followEntity -> {
+            follows.parallelStream().forEach(followEntity -> {
                 followEntity.setFollowingUserEntityByUserId(userRepository.findOne(followEntity.getFollowingUserId()));
             });
             return ResponseEntity.ok(follows);

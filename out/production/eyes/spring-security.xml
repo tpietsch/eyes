@@ -82,9 +82,9 @@
         </mvc:interceptor>
     </mvc:interceptors>
 
-    <bean id="jwtAuthenticationFilter" class="com.eyes.authentication.JwtAuthenticationFilter">
+    <bean id="jwtAuthenticationFilter" class="com.eyes.authentication.TokenAuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager" />
-        <property name="authenticationSuccessHandler" ref="jwtSuccessHandler" />
+        <property name="authenticationSuccessHandler" ref="tokenAuthenticationSuccessHandler" />
     </bean>
 
     <bean id="globalMethodSecurityConfiguration" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler"/>
@@ -92,7 +92,7 @@
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider ref="eyesAuthenticationProvider">
         </security:authentication-provider>
-        <security:authentication-provider ref="jwtAuthentication">
+        <security:authentication-provider ref="tokenAuthentication">
         </security:authentication-provider>
     </security:authentication-manager>
     <security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled">
@@ -118,6 +118,9 @@
     <jpa:repositories base-package="com.eyes.follow.database.repositories"/>
     <jpa:repositories base-package="com.eyes.tweet.database.repositories"/>
 
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="configDataSource"/>
+    </bean>
 
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>

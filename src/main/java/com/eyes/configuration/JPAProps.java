@@ -17,9 +17,10 @@ public class JPAProps extends Properties {
         if (configuration.getBoolean("hibernate.create-drop")) {
             setProperty("hibernate.hbm2ddl.auto","create-drop");
             setProperty("hibernate.hbm2ddl.import_files_sql_extractor","org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor");
-//            setProperty("hibernate.hbm2ddl.import_files", "impo");
+            setProperty("hibernate.hbm2ddl.import_files", "import.sql");
+        }else{
+            setProperty("hibernate.hbm2ddl.auto","create");
         }
-        setProperty("hibernate.hbm2ddl.auto","create-drop");
         setProperty("hibernate.dialect", configuration.getString("dialect", "org.hibernate.dialect.MySQLDialect"));
         setProperty("hibernate.show_sql", "true");
     }

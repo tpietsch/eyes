@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,13 +16,11 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-
-@Service("userServiceTwo")
+@Component
 public class EyesUserDetailsService implements UserDetailsService, Serializable {
 
     @Autowired
     UserRepository mUserRepository;
-
 
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

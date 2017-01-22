@@ -9,18 +9,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JwtAuthentication implements AuthenticationProvider {
-
-    @Autowired
-    @Qualifier("userServiceTwo")
-    UserDetailsService userServiceTwo;
-
-    @Autowired
-    JwtParseUtil jwtParseUtil;
+public class TokenAuthentication implements AuthenticationProvider {
 
     @Override
     public boolean supports(Class<?> authentication) {
-        return (JwtAuthenticationToken.class.isAssignableFrom(authentication));
+        return (AuthenticationToken.class.isAssignableFrom(authentication));
     }
 
     public Authentication authenticate(Authentication authentication)

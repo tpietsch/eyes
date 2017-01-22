@@ -13,5 +13,5 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
     @Query("select user from UserEntity user " +
             " where user.email=?1")
     @Transactional
-    UserEntity findByEmail(String username);
+    UserEntity findByEmail(String email);
 }

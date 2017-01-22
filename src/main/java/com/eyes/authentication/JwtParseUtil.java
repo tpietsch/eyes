@@ -30,8 +30,7 @@ public class JwtParseUtil {
     UserRepository userRepository;
 
     @Autowired
-    @Qualifier("userServiceTwo")
-    UserDetailsService userServiceTwo;
+    UserDetailsService eyesUserDetailsService;
 
 
     public UserDetails parseToken(String token) {
@@ -47,7 +46,7 @@ public class JwtParseUtil {
             UserEntity user = userRepository.findOne(body.getId());
             if (user == null)
                 return null;
-            return userServiceTwo.loadUserByUsername(user.getEmail());
+            return eyesUserDetailsService.loadUserByUsername(user.getEmail());
 
         } catch (JwtException | ClassCastException e) {
             return null;

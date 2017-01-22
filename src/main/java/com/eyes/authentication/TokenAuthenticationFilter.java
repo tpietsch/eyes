@@ -22,20 +22,19 @@ import java.io.IOException;
 import java.util.Map;
 
 
-public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFilter implements HandshakeInterceptor {
+public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingFilter implements HandshakeInterceptor {
 
     @Autowired
     JwtParseUtil jwtParseUtil;
 
     @Autowired
-    CurrentUserUtil currentUserUtil;
+    AuthenticatedUserUtil authenticatedUserUtil;
 
 
     @Autowired
-    @Qualifier("userServiceTwo")
-    UserDetailsService customUserService;
+    UserDetailsService eyesUserDetailsService;
 
-    public JwtAuthenticationFilter() {
+    public TokenAuthenticationFilter() {
         super("/**");
     }
 
@@ -52,7 +51,7 @@ public class JwtAuthenticationFilter extends AbstractAuthenticationProcessingFil
         }
         UserDetails parsedUser = jwtParseUtil.parseToken(header);
         if (parsedUser != null) {
-            JwtAuthenticationToken authRequest = new JwtAuthenticationToken(header, parsedUser);
+            AuthenticationToken authRequest = new AuthenticationToken(header, parsedUser);
             return getAuthenticationManager().authenticate(authRequest);
         } else {
             return SecurityContextHolder.getContext().getAuthentication();

@@ -3,11 +3,11 @@ package com.eyes.authentication;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class JwtAuthenticationToken extends AbstractAuthenticationToken {
+public class AuthenticationToken extends AbstractAuthenticationToken {
 
     private String token;
 
-    public JwtAuthenticationToken(String token, UserDetails userEntity) {
+    public AuthenticationToken(String token, UserDetails userEntity) {
         super(userEntity.getAuthorities());
         this.setDetails(userEntity);
         this.token = token;
