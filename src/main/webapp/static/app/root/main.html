@@ -17,7 +17,12 @@
                                     <td>
                                         <div class="media">
                                             <div class="media-body">
-                                                <span class="media-meta pull-right">{{::tweet.dateCreated | date :  "MM.dd.y HH:MM" }}</span>
+                                                <small>
+                                                    <span>User : {{::tweet.userEntity.email}}</span>
+                                                    <mark class="media-meta xs pull-right">{{::tweet.dateCreated |
+                                                        date:'medium' }}
+                                                    </mark>
+                                                </small>
                                                 <p class="summary">{{::tweet.tweet}}</p>
                                             </div>
                                         </div>
@@ -27,7 +32,8 @@
                             </table>
                         </div>
                         <input type="text" class="form-control" ng-model="RootController.filterText"/>
-                        <button class="btn btn-default" ng-click="RootController.filterTweets(RootController.filterText)">Filter
+                        <button class="btn btn-default"
+                                ng-click="RootController.filterTweets(RootController.filterText)">Filter
                             Tweets
                         </button>
                     </div>
@@ -68,7 +74,9 @@
                                         <div class="media">
                                             <div class="media-body">
                                                 <p class="summary">{{::following.followingUserEntity.email}}</p>
-                                                <button class="btn btn-danger btn-xs" ng-click="RootController.unfollow(following.followId)">unfollow</button>
+                                                <button class="btn btn-danger btn-xs"
+                                                        ng-click="RootController.unfollow(following.followId)">unfollow
+                                                </button>
 
                                             </div>
                                         </div>
@@ -93,7 +101,9 @@
                                         <div class="media">
                                             <div class="media-body">
                                                 <a ui-sref="user({id:user.userId})">{{::user.email}}</a>
-                                                <button class="btn btn-success btn-xs" ng-click="RootController.follow(user.userId)">follow</button>
+                                                <button class="btn btn-success btn-xs"
+                                                        ng-click="RootController.follow(user.userId)">follow
+                                                </button>
                                             </div>
                                         </div>
                                     </td>

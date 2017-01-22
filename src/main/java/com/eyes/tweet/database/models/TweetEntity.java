@@ -1,5 +1,8 @@
 package com.eyes.tweet.database.models;
 
+import com.eyes.user.database.models.UserEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.UUID;
@@ -11,6 +14,8 @@ public class TweetEntity {
     private Timestamp dateCreated = new Timestamp(System.currentTimeMillis());
     private String tweet;
     private String userId;
+    @JsonProperty("userEntity")
+    transient private UserEntity userEntity;
 
     @Id
     @Column(name = "tweet_id")
@@ -73,5 +78,14 @@ public class TweetEntity {
         result = 31 * result + (tweet != null ? tweet.hashCode() : 0);
         result = 31 * result + (userId != null ? userId.hashCode() : 0);
         return result;
+    }
+
+    @Transient
+    public UserEntity getUserEntity() {
+        return userEntity;
+    }
+
+    public void setUserEntity(UserEntity userEntity) {
+        this.userEntity = userEntity;
     }
 }

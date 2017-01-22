@@ -49,13 +49,19 @@ public class UserTweetRest {
             tweets.addAll(tweetRepository.findTweets(userId));
         }
 
-        addUserDataToTweets(userId, searchTerm, tweets);
+        addUserFollowsToTweets(userId, searchTerm, tweets);
 
         sortedTweets = sortTweetsByDate(tweets);
 
+        return ResponseEntity.ok(addUserInformationToTweets(sortedTweets));
 
-        return ResponseEntity.ok(sortedTweets);
+    }
 
+    private List<TweetEntity> addUserInformationToTweets(List<TweetEntity> sortedTweets) {
+        sortedTweets.forEach(tweetEntity -> {
+            tweetEntity.setUserEntity(userRepository.findOne(tweetEntity.getUserId()));
+        });
+        return sortedTweets;
     }
 
     private List<TweetEntity> sortTweetsByDate(Set<TweetEntity> tweets) {
@@ -75,7 +81,7 @@ public class UserTweetRest {
         return sortedTweets;
     }
 
-    private void addUserDataToTweets(@PathVariable(USER_ID) String userId, @RequestParam(required = false, name = "search") String searchTerm, Set<TweetEntity> tweets) {
+    private void addUserFollowsToTweets(@PathVariable(USER_ID) String userId, @RequestParam(required = false, name = "search") String searchTerm, Set<TweetEntity> tweets) {
         Set<FollowEntity> follows = followRepository
                 .findFollowingByUserId(userId);
         follows.stream().forEach(followEntity -> {
@@ -95,6 +101,7 @@ public class UserTweetRest {
     public ResponseEntity<?> newTweet(@PathVariable(USER_ID) String userId, @RequestBody TweetEntity tweetEntity) {
         tweetEntity.setUserId(userId);
         tweetEntity.setDateCreated(new Timestamp(System.currentTimeMillis()));
+        tweetEntity.setUserEntity(userRepository.findOne(userId));
         return ResponseEntity.ok(tweetRepository.saveTweet(tweetEntity));
     }
 
