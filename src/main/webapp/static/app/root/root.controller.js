@@ -45,13 +45,13 @@
         RootController.prototype.follow = function (userId) {
             var follow = {};
             this.FollowResource.save({id:userId},follow).$promise.then(function(data){
-
+                this.$state.reload();
             }.bind(this))
         };
 
         RootController.prototype.unfollow = function (followId) {
             this.FollowResource.delete({id:this.user.userId,followId:followId}).$promise.then(function(data){
-
+                this.$state.reload();
             }.bind(this))
         };
 
