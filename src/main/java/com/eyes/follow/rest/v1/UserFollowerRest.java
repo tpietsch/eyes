@@ -36,7 +36,7 @@ public class UserFollowerRest {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     @Transactional
-    public ResponseEntity<?> getReceipts(@PathVariable(USER_ID) String userId) {
+    public ResponseEntity<?> getFollowersForUser(@PathVariable(USER_ID) String userId) {
         try {
 
             Set<FollowEntity> follows = followRepository
@@ -59,8 +59,8 @@ public class UserFollowerRest {
     @RequestMapping(method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Transactional
-    public ResponseEntity<?> getReceipts(@PathVariable(USER_ID) String userId,
-                                        @RequestBody FollowEntity followEntity) {
+    public ResponseEntity<?> createNewFollow(@PathVariable(USER_ID) String userId,
+                                             @RequestBody FollowEntity followEntity) {
         String curreUserId = authenticatedUserUtil.getAuthenticatedUserEntity().getUserId();
         Set<FollowEntity> follows = followRepository.findByFollowerAndFollowingUserId(curreUserId,userId);
         if(follows.size() > 0){
@@ -76,7 +76,7 @@ public class UserFollowerRest {
     @RequestMapping(method = RequestMethod.DELETE,value = "/" + FOLLOW_ID_PATH)
     @ResponseBody
     @Transactional
-    public void getReceipts(@PathVariable(USER_ID) String userId, @PathVariable(FOLLOW_ID) String followId) {
+    public void unfollow(@PathVariable(USER_ID) String userId, @PathVariable(FOLLOW_ID) String followId) {
        followRepository.delete(followId);
     }
 }

@@ -35,7 +35,7 @@ public class UserFollowingRest {
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
     @Transactional
-    public ResponseEntity<?> getReceipts(@PathVariable(USER_ID) String userId) {
+    public ResponseEntity<?> getAllUsersFollowedByThisUser(@PathVariable(USER_ID) String userId) {
         try {
             Set<FollowEntity> follows = followRepository
                     .findFollowingByUserId(userId);

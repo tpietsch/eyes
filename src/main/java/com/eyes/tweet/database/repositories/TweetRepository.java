@@ -14,8 +14,8 @@ public interface TweetRepository extends CrudRepository<TweetEntity, String> {
 
     @Query("select tweet from TweetEntity tweet where tweet.userId = ?1 and " +
             "(tweet.tweet like CONCAT('%',?2,'%') or ?2 is null)")
-    Set<TweetEntity> findByTweetTextPagedByDate(String userId, String searchTerm);
+    Set<TweetEntity> findByTweetSearchText(String userId, String searchTerm);
 
     @Query("select tweet from TweetEntity tweet where tweet.userId = ?1")
-    Set<TweetEntity> findTweetsPaged(String userId);
+    Set<TweetEntity> findTweets(String userId);
 }
