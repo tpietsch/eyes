@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
-@Table(name = "com/eyes/follow")
+@Table(name = "follow")
 public class FollowEntity {
     private String followId = UUID.randomUUID().toString();
     private Timestamp dateCreated = new Timestamp(System.currentTimeMillis());

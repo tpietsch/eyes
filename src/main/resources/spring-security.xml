@@ -125,12 +125,13 @@
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
 
-    <bean id="jpaProps" class="com.eyes.configuration.JPAProps" init-method="setProps">
+    <bean id="jpaProps" class="com.eyes.configuration.JPAProps">
         <constructor-arg ref="configuration"/>
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="packagesToScan" value="com.eyes.authentication.database.models,com.eyes.follow.database.models,com.eyes.tweet.database.models"/>
+        <property name="packagesToScan"
+                  value="com.eyes.tweet.database.models,com.eyes.authentication.database.models,com.eyes.follow.database.models"/>
         <property name="dataSource" ref="configDataSource"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">

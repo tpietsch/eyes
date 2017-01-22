@@ -12,17 +12,16 @@ public class JPAProps extends Properties {
 
     public JPAProps(PropertiesConfiguration propertiesConfiguration) {
         this.configuration = propertiesConfiguration;
-    }
-
-
-    public void setProps() {
         setProperty("hibernate.connection.release_mode", "ON_CLOSE");
         setProperty("hibernate.connection.handling_mode", "DELAYED_ACQUISITION_AND_RELEASE_AFTER_TRANSACTION");
         if (configuration.getBoolean("hibernate.create-drop")) {
-            setProperty("hibernate.hbm2ddl.auto", configuration.getString("hbauto", ""));
+            setProperty("hibernate.hbm2ddl.auto","create-drop");
+            setProperty("hibernate.hbm2ddl.import_files_sql_extractor","org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor");
+//            setProperty("hibernate.hbm2ddl.import_files", "impo");
         }
         setProperty("hibernate.hbm2ddl.auto","create-drop");
-        setProperty("hibernate.dialect", configuration.getString("dialect", ""));
-        setProperty("hibernate.show_sql", "false");
+        setProperty("hibernate.dialect", configuration.getString("dialect", "org.hibernate.dialect.MySQLDialect"));
+        setProperty("hibernate.show_sql", "true");
     }
+
 }

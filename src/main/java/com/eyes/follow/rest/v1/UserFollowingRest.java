@@ -41,10 +41,10 @@ public class UserFollowingRest {
 
             Set<FollowEntity> follows = followRepository
                     .findFollowingByUserId(userId);
-            follows.parallelStream().forEach(followEntity -> {
+            follows.stream().forEach(followEntity -> {
                 followEntity.setFollowByUserEntityByUserId(userRepository.findOne(followEntity.getFollowByUserId()));
             });
-            follows.parallelStream().forEach(followEntity -> {
+            follows.stream().forEach(followEntity -> {
                 followEntity.setFollowingUserEntityByUserId(userRepository.findOne(followEntity.getFollowingUserId()));
             });
             return ResponseEntity.ok(follows);

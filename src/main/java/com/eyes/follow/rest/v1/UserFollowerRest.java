@@ -19,7 +19,7 @@ import java.util.Set;
 import static com.eyes.configuration.RestEndpointConstants.*;
 
 @RestController
-@RequestMapping(value = V1 + "/user/" + USER_ID_PATH + "/com/eyes/follow",
+@RequestMapping(value = V1 + "/user/" + USER_ID_PATH + "/follow",
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserFollowerRest {
     private static Logger logger = Logger.getLogger(UserFollowerRest.class);

@@ -21,7 +21,7 @@ import java.util.*;
 import static com.eyes.configuration.RestEndpointConstants.*;
 
 @RestController
-@RequestMapping(value = V1 + "/user/" + USER_ID_PATH + "/com/eyes/tweet",
+@RequestMapping(value = V1 + "/user/" + USER_ID_PATH + "/tweet",
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserTweetRest {
     private static Logger logger = Logger.getLogger(UserTweetRest.class);

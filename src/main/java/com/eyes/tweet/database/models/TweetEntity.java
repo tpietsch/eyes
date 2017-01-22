@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.UUID;
 
 @Entity
-@Table(name = "com/eyes/tweet")
+@Table(name = "tweet")
 public class TweetEntity {
     private String tweetId = UUID.randomUUID().toString();
     private Timestamp dateCreated = new Timestamp(System.currentTimeMillis());
@@ -33,7 +33,7 @@ public class TweetEntity {
     }
 
     @Basic
-    @Column(name = "com/eyes/tweet")
+    @Column(name = "tweet")
     public String getTweet() {
         return tweet;
     }
