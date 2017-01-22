@@ -43,11 +43,6 @@ public class AppTest {
     private static Logger logger = Logger.getLogger(AppTest.class);
     public static final String USERNAME = "test-user-follow-tweet-count";
 
-//    @Configuration
-//    @Import(EyesRootConfiguration.class)
-//    static class ContextConfiguration {
-//
-//    }
 
     @Autowired
     UserFollowingRest userFollowingRest;
@@ -59,10 +54,6 @@ public class AppTest {
     @Qualifier("tweetRepository")
     @Autowired
     TweetRepository tweetRepository;
-
-    @Qualifier("tweetRepositoryImpl")
-    @Autowired
-    TweetRepositoryImpl tweetRepositoryImpl;
 
     @Qualifier("followRepository")
     @Autowired

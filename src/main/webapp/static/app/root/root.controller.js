@@ -37,6 +37,7 @@
         RootController.prototype.tweet = function (msg) {
             var twt = {};
             twt.tweet = msg;
+            twt.userId = this.user.userId;
             this.TweetResource.save({id:this.user.userId},twt).$promise.then(function(data){
                 this.tweets.unshift(data);
             }.bind(this))
@@ -44,6 +45,8 @@
 
         RootController.prototype.follow = function (userId) {
             var follow = {};
+            follow.followByUserId = this.currentUser.userId;
+            follow.followingUserId = userId;
             this.FollowResource.save({id:userId},follow).$promise.then(function(data){
                 this.$state.reload();
             }.bind(this))

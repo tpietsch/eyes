@@ -97,11 +97,11 @@ public class UserTweetRest {
     @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Transactional
-    @PreAuthorize("@tweetSecurity.isUserTweetForCurrentUser(authentication,#userId)")
+    @PreAuthorize("(@tweetSecurity.isUserTweetForCurrentUser(authentication,#userId) and @tweetSecurity.isUserTweetForCurrentUser(authentication,#tweetEntity)) or hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> newTweet(@PathVariable(USER_ID) String userId, @RequestBody TweetEntity tweetEntity) {
-        tweetEntity.setUserId(userId);
         tweetEntity.setDateCreated(new Timestamp(System.currentTimeMillis()));
         tweetEntity.setUserEntity(userRepository.findOne(userId));
+        tweetEntity.setUserId(userId);
         return ResponseEntity.ok(tweetRepository.saveTweet(tweetEntity));
     }
 

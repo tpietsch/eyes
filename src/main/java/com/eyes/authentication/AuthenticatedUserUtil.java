@@ -14,12 +14,12 @@ public class AuthenticatedUserUtil {
     public UserEntity getAuthenticatedUserEntity() {
         try {
             if (SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof String) {
-               return null;
+               return new UserEntity();
             }
             String username = ((EyesUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
             return mUserRepository.findByEmail(username);
         } catch (Exception e) {
-            return null;
+            return new UserEntity();
         }
     }
 }

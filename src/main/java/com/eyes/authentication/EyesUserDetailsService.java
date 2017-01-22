@@ -29,8 +29,13 @@ public class EyesUserDetailsService implements UserDetailsService, Serializable 
         }
 
         Set<GrantedAuthority> roles = new HashSet<>();
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
-        roles.add(grantedAuthority);
+        if(username.contains("admin")){
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_ADMIN");
+            roles.add(grantedAuthority);
+        }else{
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
+            roles.add(grantedAuthority);
+        }
         return new EyesUser(user.getEmail(), user.getPassword(), roles, user);
     }
 

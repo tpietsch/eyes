@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import com.eyes.error.ErrorJsonResponse;
@@ -59,20 +60,20 @@ public class UserFollowerRest {
     @RequestMapping(method = RequestMethod.POST,consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @Transactional
+    @PreAuthorize("(@followSecurity.isFollowByCurrentUser(#followEntity)) or hasRole('ADMIN')")
     public ResponseEntity<?> createNewFollow(@PathVariable(USER_ID) String userId,
                                              @RequestBody FollowEntity followEntity) {
+
         if(userId.equals(authenticatedUserUtil.getAuthenticatedUserEntity().getUserId())){
             return ResponseEntity.status(403).body(new ErrorJsonResponse("Cannot Follow Self"));
         }
-        String curreUserId = authenticatedUserUtil.getAuthenticatedUserEntity().getUserId();
-        Set<FollowEntity> follows = followRepository.findByFollowerAndFollowingUserId(curreUserId,userId);
+
+        Set<FollowEntity> follows = followRepository.findByFollowerAndFollowingUserId(followEntity.getFollowByUserId(),followEntity.getFollowingUserId());
         if(follows.size() > 0){
             return ResponseEntity.ok(follows.iterator().next());
         }
 
         followEntity.setDateCreated(new Timestamp(System.currentTimeMillis()));
-        followEntity.setFollowingUserId(userId);
-        followEntity.setFollowByUserId(curreUserId);
         return ResponseEntity.ok(followRepository.save(followEntity));
     }
 
