@@ -50,7 +50,6 @@
             'signiture.panel' : 'static/modules/signature_pad.min',
             'angular-summernote' : 'static/node_modules/angular-summernote/dist/angular-summernote.min',
             'summernote' : 'static/node_modules/summernote/dist/summernote',
-            'lib/stripe' : 'https://js.stripe.com/v2/?',
 
             /* TEMPLATEJS & MODULES */
             'growlMessage': "static/modules/growlMessage",
@@ -58,29 +57,12 @@
             'bootstrap-growl' : 'static/modules/bootstrap-growl',
             'waves' : 'static/modules/waves',
 
-
             /* APP UI ROUTER STATES */
             'rootStates': "app/root/rootStates",
-            'teamStates': "app/team/teamStates",
-            'profileStates': "app/root/profileStates",
-            'playerFeeStates': "app/team/playerFeeStates",
-
-            /* APP SERVICES */
-            'chat-service' : 'app/ChatService',
 
             /* APP ANGULAR RESOURCES */
-            'TeamResource': "app/root/TeamResource",
-            'TeamAdminResource': "app/root/TeamAdminResource",
-            'ExpenseResource': "app/root/ExpenseResource",
-            'PlayerResource': "app/root/PlayerResource",
-            'ReceiptResource': "app/root/ReceiptResource",
             'AuthResource': "app/root/AuthResource",
             'UserResource': "app/root/UserResource",
-            'TeamMessageResource': "app/root/TeamMessageResource",
-            'ActualUserResource': "app/root/ActualUserResource",
-            'InstantMessageResource': "app/root/InstantMessageResource",
-            'FeeResource': "app/root/FeeResource",
-            'PlayerFeeResource': "app/root/PlayerFeeResource",
         },
         shim: {
             'angular' : {
@@ -122,13 +104,6 @@
             'jquery.slimScroll': ['jquery'],
             'angular-file-upload': ['angular'],
             'angular-storage': ['angular'],
-            'lib/stripe': {
-                exports: 'Stripe',
-                init: function() {
-                    this.Stripe.setPublishableKey('pk_test_4WRpgPkq5tDSjCip1A1ODFv2');
-                    return this.Stripe
-                }
-            }
 
         }
     });
