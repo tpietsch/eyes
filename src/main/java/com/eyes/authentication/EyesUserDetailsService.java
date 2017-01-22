@@ -1,7 +1,7 @@
 package com.eyes.authentication;
 
-import com.eyes.authentication.database.models.UserEntity;
-import com.eyes.authentication.database.repositories.UserRepository;
+import com.eyes.user.database.models.UserEntity;
+import com.eyes.user.database.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;

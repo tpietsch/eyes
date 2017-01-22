@@ -1,4 +1,4 @@
-package com.eyes.authentication.database.models;
+package com.eyes.user.database.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "user_entity")
+@Table(name = "eyes_user")
 public class UserEntity {
     private String userId = UUID.randomUUID().toString();
     private String name;

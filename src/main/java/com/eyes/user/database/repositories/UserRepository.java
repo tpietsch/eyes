@@ -1,7 +1,7 @@
-package com.eyes.authentication.database.repositories;
+package com.eyes.user.database.repositories;
 
 
-import com.eyes.authentication.database.models.UserEntity;
+import com.eyes.user.database.models.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

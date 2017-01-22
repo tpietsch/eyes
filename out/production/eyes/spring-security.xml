@@ -2,92 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:security="http://www.springframework.org/schema/security"
-       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-       xmlns:tx="http://www.springframework.org/schema/tx"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:websocket="http://www.springframework.org/schema/websocket"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/security
-        classpath:spring/spring-security.xsd
-        http://www.springframework.org/schema/data/jpa
-        classpath:spring/spring-jpa.xsd
-        http://www.springframework.org/schema/tx
-        classpath:spring/spring-tx.xsd
-        http://www.springframework.org/schema/context
-        classpath:spring/spring-context.xsd
+        http://www.springframework.org/schema/security/spring-security.xsd
         http://www.springframework.org/schema/beans
-        classpath:spring/spring-beans.xsd
-        http://www.springframework.org/schema/websocket
-        classpath:spring/spring-websocket.xsd
-        http://www.springframework.org/schema/mvc
-        classpath:spring/spring-mvc.xsd
-        http://www.springframework.org/schema/task
-        classpath:spring/spring-task-4.0.xsd">
-
-    <bean id="placeholderconfig" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:app-#{ systemProperties['env']}.properties"/>
-    </bean>
-
-    <bean id="configuration" class="org.apache.commons.configuration.PropertiesConfiguration">
-        <constructor-arg  value="app-#{ systemProperties['env']}.properties"/>
-    </bean>
-
-    <context:component-scan base-package="com.eyes"/>
-
-
-    <mvc:default-servlet-handler/>
-    <mvc:annotation-driven>
-        <mvc:message-converters>
-            <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
-            <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
-            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
-            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
-                <property name="objectMapper" ref="jacksonObjectMapper" />
-            </bean>
-        </mvc:message-converters>
-    </mvc:annotation-driven>
-
-
-    <bean id="jacksonObjectMapper" class="com.eyes.configuration.JsonObjectMapperProvider" />
-    <bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
-        <property name="maxUploadSize" value="100000000" />
-    </bean>
-
-    <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
-    <task:executor id="myExecutor"  pool-size="5"/>
-    <task:scheduler id="myScheduler" pool-size="10"/>
-
-    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-        <property name="targetClass"
-                  value="org.springframework.security.core.context.SecurityContextHolder"/>
-        <property name="targetMethod" value="setStrategyName"/>
-        <property name="arguments"><list><value>MODE_INHERITABLETHREADLOCAL</value></list></property>
-    </bean>
-
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/files/images/*" />
-            <bean id="responseCachingFilterImg" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
-                <property name="cacheSeconds" value="31556926"/>
-            </bean>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**" />
-            <mvc:mapping path="/*" />
-            <mvc:exclude-mapping path="/files/images/*"/>
-            <bean id="responseCachingFilter" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
-                <property name="cacheSeconds" value="0" />
-            </bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="jwtAuthenticationFilter" class="com.eyes.authentication.TokenAuthenticationFilter">
         <property name="authenticationManager" ref="authenticationManager" />
         <property name="authenticationSuccessHandler" ref="tokenAuthenticationSuccessHandler" />
     </bean>
-
-    <bean id="globalMethodSecurityConfiguration" class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler"/>
 
     <security:authentication-manager alias="authenticationManager">
         <security:authentication-provider ref="eyesAuthenticationProvider">
@@ -95,9 +18,6 @@
         <security:authentication-provider ref="tokenAuthentication">
         </security:authentication-provider>
     </security:authentication-manager>
-    <security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled">
-        <security:expression-handler ref="globalMethodSecurityConfiguration"/>
-    </security:global-method-security>
 
     <security:http security="none" pattern="/static/**"/>
     <security:http security="none" pattern="/"/>
@@ -110,52 +30,4 @@
         <security:csrf disabled="true"/>
     </security:http>
 
-    <bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-        <constructor-arg value="10"/>
-    </bean>
-
-    <jpa:repositories base-package="com.eyes.authentication.database.repositories"/>
-    <jpa:repositories base-package="com.eyes.follow.database.repositories"/>
-    <jpa:repositories base-package="com.eyes.tweet.database.repositories"/>
-
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="configDataSource"/>
-    </bean>
-
-    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entityManagerFactory" ref="entityManagerFactory"/>
-    </bean>
-
-    <tx:annotation-driven transaction-manager="transactionManager"/>
-
-    <bean id="jpaProps" class="com.eyes.configuration.JPAProps">
-        <constructor-arg ref="configuration"/>
-    </bean>
-
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="packagesToScan"
-                  value="com.eyes.tweet.database.models,com.eyes.authentication.database.models,com.eyes.follow.database.models"/>
-        <property name="dataSource" ref="configDataSource"/>
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-            </bean>
-        </property>
-        <property name="jpaProperties" ref="jpaProps"/>
-    </bean>
-
-    <bean id="configDataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
-        <property name="driverClassName" value="${driver}"/>
-        <property name="url" value="${dburl}"/>
-        <property name="username" value="${username}"/>
-        <property name="password" value="${password}"/>
-        <property name="initialSize" value="10"/>
-        <property name="maxActive" value="100"/>
-        <property name="minIdle" value="0"/>
-        <property name="maxIdle" value="10"/>
-        <property name="maxWait" value="5000000"/>
-        <property name="removeAbandoned" value="true"/>
-        <property name="testOnBorrow" value="true"/>
-        <property name="validationQuery" value="${validationquery}"/>
-        <property name="defaultAutoCommit" value="false"/>
-    </bean>
 </beans>

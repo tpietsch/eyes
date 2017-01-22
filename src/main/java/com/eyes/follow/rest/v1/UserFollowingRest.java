@@ -3,7 +3,7 @@ package com.eyes.follow.rest.v1;
 
 import com.eyes.follow.database.models.FollowEntity;
 import com.eyes.follow.database.repositories.FollowRepository;
-import com.eyes.authentication.database.repositories.UserRepository;
+import com.eyes.user.database.repositories.UserRepository;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

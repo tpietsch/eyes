@@ -1,6 +1,6 @@
 package test.unit;
 
-import com.eyes.authentication.database.models.UserEntity;
+import com.eyes.user.database.models.UserEntity;
 import com.eyes.follow.database.models.FollowEntity;
 import com.eyes.tweet.database.models.TweetEntity;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class TweetTest extends AppTest {
         TweetEntity tweetEntity = new TweetEntity();
         tweetEntity.setTweet(UUID.randomUUID().toString());
         tweetEntity.setUserId(userEntity.getUserId());
-        tweetRepositoryImpl.insert(tweetEntity);
+        tweetRepository.insert(tweetEntity);
     }
 
     @Test

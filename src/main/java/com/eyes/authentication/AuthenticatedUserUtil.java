@@ -1,7 +1,7 @@
 package com.eyes.authentication;
 
-import com.eyes.authentication.database.models.UserEntity;
-import com.eyes.authentication.database.repositories.UserRepository;
+import com.eyes.user.database.models.UserEntity;
+import com.eyes.user.database.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

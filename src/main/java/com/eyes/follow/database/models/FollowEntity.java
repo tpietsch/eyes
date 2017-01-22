@@ -1,6 +1,6 @@
 package com.eyes.follow.database.models;
 
-import com.eyes.authentication.database.models.UserEntity;
+import com.eyes.user.database.models.UserEntity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;

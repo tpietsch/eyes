@@ -1,6 +1,6 @@
 package com.eyes.authentication;
 
-import com.eyes.authentication.database.models.UserEntity;
+import com.eyes.user.database.models.UserEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 

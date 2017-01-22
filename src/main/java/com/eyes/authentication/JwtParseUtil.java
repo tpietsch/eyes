@@ -1,13 +1,12 @@
 package com.eyes.authentication;
 
-import com.eyes.authentication.database.models.UserEntity;
-import com.eyes.authentication.database.repositories.UserRepository;
+import com.eyes.user.database.models.UserEntity;
+import com.eyes.user.database.repositories.UserRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

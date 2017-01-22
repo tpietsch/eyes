@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.server.HandshakeInterceptor;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
-
+@Component
 public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingFilter implements HandshakeInterceptor {
 
     @Autowired
@@ -75,6 +77,13 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
     @Override
     public void afterHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Exception e) {
 
+    }
+
+
+    @Override
+    @Autowired
+    public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+        super.setAuthenticationManager(authenticationManager);
     }
 }
 

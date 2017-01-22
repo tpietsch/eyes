@@ -1,7 +1,7 @@
 package com.eyes.tweet.rest.v1;
 
 
-import com.eyes.authentication.database.repositories.UserRepository;
+import com.eyes.user.database.repositories.UserRepository;
 import com.eyes.follow.database.models.FollowEntity;
 import com.eyes.follow.database.repositories.FollowRepository;
 import com.eyes.tweet.database.models.TweetEntity;

@@ -7,7 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service("tweetRepositoryImpl")
-public class TweetRepositoryImpl {
+public class TweetRepositoryImpl implements TweetRepositoryInterface{
 
     @Autowired
     private JdbcTemplate jdbcTemplate;

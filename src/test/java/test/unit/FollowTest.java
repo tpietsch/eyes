@@ -1,6 +1,6 @@
 package test.unit;
 
-import com.eyes.authentication.database.models.UserEntity;
+import com.eyes.user.database.models.UserEntity;
 import com.eyes.follow.database.models.FollowEntity;
 import org.junit.Test;
 import org.springframework.security.test.context.support.WithUserDetails;
