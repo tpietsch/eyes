@@ -114,7 +114,7 @@ public class EyesRootConfiguration extends WebMvcConfigurerAdapter {
 
 
     @Bean
-    public MethodInvokingFactoryBean asd() {
+    public MethodInvokingFactoryBean setSecurityContextThreadInheritable() {
         MethodInvokingFactoryBean x = new MethodInvokingFactoryBean();
         x.setTargetClass(SecurityContextHolder.class);
         x.setTargetMethod("setStrategyName");
@@ -129,7 +129,7 @@ public class EyesRootConfiguration extends WebMvcConfigurerAdapter {
 
     @Bean
     @Qualifier("globalMethodSecurityConfiguration")
-    public DefaultMethodSecurityExpressionHandler sd() {
+    public DefaultMethodSecurityExpressionHandler allowMethodGlobalSecuirtyAnnotations() {
         return new DefaultMethodSecurityExpressionHandler();
     }
 
