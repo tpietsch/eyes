@@ -214,28 +214,4 @@ public class EyesRootConfiguration extends WebMvcConfigurerAdapter {
         return new NamedParameterJdbcTemplate(dataSource);
     }
 
-    //TODO add beans for this stuff - mostly unnecessary but for thoroughness
-    /*
-    <task:annotation-driven executor="myExecutor" scheduler="myScheduler"/>
-    <task:executor id="myExecutor"  pool-size="5"/>
-    <task:scheduler id="myScheduler" pool-size="10"/>
 
-
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/files/images/*" />
-            <bean id="responseCachingFilterImg" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
-                <property name="cacheSeconds" value="31556926"/>
-            </bean>
-        </mvc:interceptor>
-        <mvc:interceptor>
-            <mvc:mapping path="/**" />
-            <mvc:mapping path="/*" />
-            <mvc:exclude-mapping path="/files/images/*"/>
-            <bean id="responseCachingFilter" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
-                <property name="cacheSeconds" value="0" />
-            </bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
-     */
-}
