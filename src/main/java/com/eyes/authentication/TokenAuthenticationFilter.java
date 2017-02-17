@@ -36,8 +36,10 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
     @Autowired
     UserDetailsService eyesUserDetailsService;
 
-    public TokenAuthenticationFilter() {
+    public TokenAuthenticationFilter(AuthenticationManager authenticationManager) {
         super("/**");
+        super.setAuthenticationSuccessHandler(new TokenAuthenticationSuccessHandler());
+        super.setAuthenticationManager(authenticationManager);
     }
 
     @Override
